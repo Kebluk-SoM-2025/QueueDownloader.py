@@ -59,12 +59,13 @@ python QueueDownloader.py -f queue.json -d ./downloads
 - `-f`, `--file` Path to the JSON queue file (default: `queue.json`).
 - `-d`, `--destination` Directory to save downloaded files (default: `./downloads`).
 - `-p`, `--predefined` Use a default queue file and destination without interactive prompts.
+- `-r`, `--retry` Retry failed downloads.
 - `-c `, `--curl-args` Additional `curl` arguments (e.g., `--insecure --verbose`).
 
 ### Example
 
 ```bash
-python QueueDownloader.py -f queue.json -d downloads -c "--insecure --verbose"
+python QueueDownloader.py -f queue.json -d downloads -c="--insecure --verbose"
 ```
 
 If run without `-p`, the script prompts for the queue file and destination folder, defaulting to `queue.json` and `
