@@ -26,13 +26,13 @@ class QueueDownloader:
             raise ValueError(f"File {self.queue_file} is not a valid JSON file.")
 
 
-    def download_file(self, filename: str, url: str, current_order: int, total_files: int) -> bool:
+    def download_file(self, curl: str, filename: str, url: str, current_order: int, total_files: int) -> bool:
         file_path = os.path.join(self.destination, filename)
 
         # Create a destination directory if it doesn't exist
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-        curl_command = ["curl", url, "-o", file_path, *self.curl_args]
+        curl_command = [curl, url, "-o", file_path, *self.curl_args]
 
         try:
             print(f"\033\n[1;34m[{time_now()}] [{current_order}/{total_files}] Downloading: {filename}\033[0m")
@@ -54,7 +54,7 @@ class QueueDownloader:
 
         for filename, url in self.queue.items():
             current_order = successful_downloads + len(unsuccessful_files) + 1
-            if self.download_file(filename, url, current_order, total_files):
+            if self.download_file("curl.exe" if os.name == "nt" else "curl", filename, url, current_order, total_files):
                 successful_downloads += 1
             else:
                 unsuccessful_files[filename] = url
